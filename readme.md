@@ -12,5 +12,5 @@
  - 使用了uikit的非扁平风格
  - 使用了entrust来RBAC
  - 使用了beanstalkd来适应并发
-
-目前ab测试并发为100+
+ 
+目前ab测试并发为440+

@@ -28,14 +28,17 @@
                 <tr>
                     <th><button onclick='cancelAllFiles()' class="uk-button uk-button-small">全选/取消</button></th>
                     <th>人员姓名</th>
+                    <th>部门</th>
+                    @permission('maintaince')
                     <th>身份证号</th>
                     <th>性别</th>
                     <th>专业</th>
-                    <th>学历</th>
+                    <th>学历|毕业时间</th>
                     <th>学位</th>
-                    <th>职称</th>
-                    <th>技能培训名称</th>
+                    <th>职称|获取时间</th>
+                    <th>技能培训名称|获取时间</th>
                     <th>入职时间</th>
+                    @endpermission
                     <th>邮箱</th>
                     <th>手机</th>
                     <th>备注</th>
@@ -53,14 +56,17 @@
                             <i class="uk-icon-medium uk-icon-square-o hby"></i>
                         </td>
                         <td>{{$human->name}}</td>
+                        <td>{{$human->department}}</td>
+                        @permission('maintaince')
                         <td>{{$human->credit}}</td>
                         <td>{{$human->sex}}</td>
                         <td>{{$human->profession}}</td>
-                        <td>{{$human->qualification}}</td>
+                        <td>{{$human->qualification}}|{{substr($human->graduated_at, 0, 10)}}</td>
                         <td>{{$human->degree}}</td>
-                        <td>{{$human->title}}</td>
-                        <td>{{$human->skill}}</td>
+                        <td>{{$human->title}}|{{substr($human->gather_title_at, 0, 10)}}</td>
+                        <td>{{$human->skill}}|{{substr($human->gather_skill_at, 0, 10)}}</td>
                         <td>{{$human->time_enter}}</td>
+                        @endpermission
                         <td>{{$human->email}}</td>
                         <td>{{$human->phone}}</td>
                         <td>@include('humans._remark')</td>

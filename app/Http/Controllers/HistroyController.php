@@ -39,7 +39,9 @@ class HistroyController extends Controller
     public function store(Request $request)
     {
         //todo 可以做一个表单验证,防止提交空的reason_words
-
+        if(!$request->reason_words){
+            return redirect()->back()->withErrors('提交理由不能为空');
+        }
         //todo 逻辑开始
         if($request->reason_type==0){
             $checker= User::where('name','钱正宇')->first();

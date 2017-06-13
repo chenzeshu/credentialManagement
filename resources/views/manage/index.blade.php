@@ -101,5 +101,7 @@
                 layer.close(index);
             });
         }
+
     </script>
     @endsection
+

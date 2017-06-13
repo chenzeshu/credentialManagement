@@ -24,21 +24,35 @@
             </div>
             <div class="uk-form-row">
                 <div class="uk-grid">
-                    <div class="uk-width-1-6">{!! Form::label('name','专业：') !!}</div>
-                    {!! Form::text('profession',null) !!}
-                    <div class="uk-width-1-6"> {!! Form::label('name','学历：') !!}</div>
-                    {!! Form::text('qualification',null) !!}
+                    <div class="uk-width-1-6">{!! Form::label('name','部门：') !!}</div>
+                    {!! Form::text('department',null) !!}
                 </div>
             </div>
             <div class="uk-form-row">
                 <div class="uk-grid">
+                    <div class="uk-width-1-6">{!! Form::label('name','专业：') !!}</div>
+                    {!! Form::text('profession',null) !!}
                     <div class="uk-width-1-6">{!! Form::label('name','学位：') !!}</div>
                     {!! Form::text('degree',null) !!}
-                    <div class="uk-width-1-6">{!! Form::label('name','职称：') !!}</div>
-                    {!! Form::text('title',null) !!}
                 </div>
             </div>
             <div class="uk-form-row">
+                <div class="uk-grid">
+                    <div class="uk-width-1-6"> {!! Form::label('name','学历：') !!}</div>
+                    {!! Form::text('qualification',null) !!}
+                    <div class="uk-width-1-6"> {!! Form::label('name','毕业时间：') !!}</div>
+                    {!! Form::date('graduated_at',null) !!}
+                </div>
+            </div>
+            <div class="uk-form-row">
+                <div class="uk-grid">
+                    <div class="uk-width-1-6">{!! Form::label('name','职称：') !!}</div>
+                    {!! Form::text('title',null) !!}
+                    <div class="uk-width-1-6"> {!! Form::label('name','职称获取时间：') !!}</div>
+                    {!! Form::date('gather_title_at',null) !!}
+                </div>
+            </div>
+            <div>
                 <div class="uk-grid">
                     <div class="uk-width-1-6">{!! Form::label('name','邮箱：') !!}</div>
                     {!! Form::text('email',null) !!}
@@ -46,9 +60,14 @@
                     {!! Form::text('phone',null) !!}
                 </div>
             </div>
+            <br>
             <div class="uk-form-row">
                 {!! Form::label('name','技能培训名称：') !!}
                 {!! Form::text('skill',null) !!}
+            </div>
+            <div class="uk-form-row">
+                {!! Form::label('name','技能获取时间：') !!}
+                {!! Form::date('gather_skill_at',null) !!}
             </div>
             <div class="uk-form-row">
                 {!! Form::label('name','入职时间：') !!}

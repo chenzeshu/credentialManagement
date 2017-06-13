@@ -62,7 +62,8 @@ class SelfController extends Controller
 
     /**
      * 功能: 将用户选择的添加进个人临时表里
-     * 注意: 所有用户的个人临时表全部都放在一张表里,这张表是user表的子表,转移/清空临时表是清空用户同id数据
+     * 注意1: 所有用户的个人临时表全部都放在一张表里,这张表是user表的子表,转移/清空临时表是清空用户同id数据
+     * 注意2: 由于histroy_details拷贝的是本表, 所以从本表就要开始做humans和softs文件的筛选下载标记
      * 路由: self.input
      */
     public function inputFile(Request $request)

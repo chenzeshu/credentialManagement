@@ -151,12 +151,6 @@
                             </ul>
                         </li>
                         <li class="uk-parent">
-                            <a href="#">项目管理</a>
-                            <ul class="uk-nav-sub">
-                                <li><a href="">空置</a></li>
-                            </ul>
-                        </li>
-                        <li class="uk-parent">
                             <a href="#">知识产权</a>
                             <ul class="uk-nav-sub">
                                 <li><a href="{{route('softs.index')}}">软件产品</a></li>
@@ -165,22 +159,27 @@
                             </ul>
                         </li>
                         <li class="uk-parent">
-                            <a href="#">质检</a>
+                            <a href="#">质量体系、产品检测</a>
                             <ul class="uk-nav-sub">
                                 <li><a href="{{route('credentials_5.index')}}">体系、贯标</a></li>
-                                <li><a href="{{route('credentials_6.index')}}">第三方产品监测、鉴定</a></li>
+                                <li><a href="{{route('credentials_6.index')}}">第三方产品检测、鉴定</a></li>
                             </ul>
                         </li>
                         <li class="uk-parent">
                             <a href="#">我的空间</a>
                             <ul class="uk-nav-sub">
-                                <li><a href="{{route('selfs.index')}}">临时审批表</a></li>
+                                <li><a href="{{route('selfs.index')}}">未审批表</a></li>
                                 <li><a href="{{route('histroy.index')}}">我的提交历史</a></li>
+                            </ul>
+                        </li>
+                        <li class="uk-parent">
+                            <a href="#">项目管理</a>
+                            <ul class="uk-nav-sub">
+                                <li><a href="">空置</a></li>
                             </ul>
                         </li>
                     </ul>
                 </div>
-
                 <style>
                     .left-nav{
                         /*height: 100%;*/
@@ -242,6 +241,7 @@
     </script>
     @yield('customerJS')
     @yield('customerEditJS')
+    @yield('CustomerDownloadJS')
 </div>
 </body>
 </html>

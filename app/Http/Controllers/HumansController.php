@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Histroy_detail;
 use App\Repositories\HumanRepository;
 use App\Human;
 use Illuminate\Http\Request;
@@ -85,6 +86,10 @@ class HumansController extends Controller
             'path_degree'=>$path_degree,
             'path_title'=>$path_title,
             'path_skill'=>$path_skill,
+            'graduated_at'=>$request->graduated_at,
+            'gather_skill_at'=>$request->gather_skill_at,
+            'gather_title_at'=>$request->gather_title_at,
+            'department'=>$request->department,
         ]);
 
         if($re){
@@ -154,6 +159,10 @@ class HumansController extends Controller
             'path_degree'=>$human->path_degree,
             'path_title'=>$human->path_title,
             'path_skill'=>$human->path_skill,
+            'graduated_at'=>$request->graduated_at,
+            'gather_skill_at'=>$request->gather_skill_at,
+            'gather_title_at'=>$request->gather_title_at,
+            'department'=>$request->department,
         ]);
 
         if($re){
@@ -241,5 +250,25 @@ class HumansController extends Controller
         return $data = [
             'data'=>'删除成功'
         ];
+    }
+
+    public function decide(Request $request)
+    {
+        $name = $request->name;  //数组的key,也是文件名
+        $flag = $request->flag;  //比如是0还是1,代表选中还是未选中,指是否允许下载
+        $type = $request->type;  //比如是path_i还是path_credit
+        $id = $request->id;
+        //todo 检索数据库
+        $detail = Histroy_detail::findOrFail($id);
+        $path = $detail->file_path;
+        $path = unserialize($path);
+
+        //todo 开始更新
+        $path[$type][$name]['flag'] = $flag;
+        $path = serialize($path);
+        $re =  $detail->update([
+            'file_path'=>$path
+        ]);
+        return $re===true ? "改变成功" : "改变失败";
     }
 }

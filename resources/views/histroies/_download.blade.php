@@ -34,3 +34,26 @@
         @endif
     </div>
 </div>
+
+@section('CustomerDownloadJS')
+    <script>
+        //管理员决定是否可以下载
+        function decideDownload(obj, name, type, id) {
+            var url = "{{route("humans.decide")}}"
+                flag = $(obj).prop('checked') ? 1 : 0
+                data = {
+                    _token:"{{csrf_token()}}",
+                    flag:flag,
+                    name:name,
+                    type:type,
+                    id:id
+                }
+                /*console.log(data)
+                return*/
+           $.post(url, data, function (data) {
+               alert(data)
+           })
+        }
+    </script>
+@endsection
+

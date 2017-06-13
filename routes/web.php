@@ -36,6 +36,7 @@ Route::group(['middleware'=>['auth','show_count']],function (){
 //      人力资源
     Route::get('/humans/download/{path}', 'HumansController@download')->middleware('throttle:5,1');  //维护员等下载文件
     Route::post('/humans/delete', 'HumansController@deleteFile');  //对已上传文件的删除行为
+    Route::post('humans/decide', 'HumansController@decide')->name('humans.decide');  //审判员决定这个文件是否可以被下载
     Route::resource('humans', 'HumansController');
 
 //      资质
