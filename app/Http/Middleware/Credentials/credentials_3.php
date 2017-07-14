@@ -16,7 +16,7 @@ class credentials_3
     public function handle($request, Closure $next)
     {
         session(['credential'=>'credentials_3',
-            'name'=>'服务感谢信']);
+            'name'=>config('titles.credential_3')]);
         return $next($request);
     }
 }

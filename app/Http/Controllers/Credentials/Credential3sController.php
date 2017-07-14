@@ -45,7 +45,7 @@ class Credential3sController extends Controller
         if($re){
             return Redirect::back()->with('callback', '修改成功!');
         }else{
-            return Redirect::back()->withErrors('新增失败,请重试');
+            return Redirect::back()->withErrors('修改失败,请重试');
         }
     }
 
@@ -87,9 +87,9 @@ class Credential3sController extends Controller
         $re = $this->repo->updateDate($request, $credential_3, $path);
 
         if($re){
-            return Redirect::back()->with('callback', '删除成功!');
+            return Redirect::back()->with('callback', '修改成功!');
         }else{
-            return Redirect::back()->withErrors('新增失败,请重试');
+            return Redirect::back()->withErrors('修改失败,请重试');
         }
     }
 

@@ -43,13 +43,10 @@ class HistroyController extends Controller
             return redirect()->back()->withErrors('提交理由不能为空');
         }
         //todo 逻辑开始
-        if($request->reason_type==0){
-            $checker= User::where('name','钱正宇')->first();
-        }else{
-            $checker= User::where('name','高晓峰')->first();
-        }
+        //拿到审批人
+        $checker = $this->repo->getChecker($request->reason_type);
         //todo 触发事件进入队列
-        $job = (new UpdateHistroyJob($checker, Auth::id(), $request->reason_type, $request->reason_words))->onQueue('foo');
+        $job = (new UpdateHistroyJob($checker, Auth::id(), $request->reason_type, $request->reason_project, $request->reason_words))->onQueue('foo');
         $this->dispatch($job);
 
         return redirect()->route('histroy.index')->with('callback', '提交成功,请稍后刷新页面,等待审批');

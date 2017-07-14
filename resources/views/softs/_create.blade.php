@@ -28,6 +28,14 @@
             <div class="uk-form-row">
                 <div class="uk-grid">
                     <div class="uk-width-1-4">
+                        {!! Form::label('name','产品登记号：') !!}
+                    </div>
+                    {!! Form::text('id2',null) !!}
+                </div>
+            </div>
+            <div class="uk-form-row">
+                <div class="uk-grid">
+                    <div class="uk-width-1-4">
                         {!! Form::label('name','软件类别：') !!}
                     </div>
                     {!! Form::text('type',null) !!}

@@ -41,11 +41,6 @@
             </div>
             <div class="uk-form-row">
                 <div class="uk-grid">
-                    <div class="uk-width-1-4">{!! Form::label('name','授权公告日期：') !!}</div>
-                    {!! Form::date('time_authorize',null) !!}</div>
-            </div>
-            <div class="uk-form-row">
-                <div class="uk-grid">
                     <div class="uk-width-1-4">{!! Form::label('name','有效截止日期：') !!}</div>
                     {!! Form::date('time_end',null) !!}</div>
             </div>

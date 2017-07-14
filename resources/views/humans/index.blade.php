@@ -3,9 +3,9 @@
 @section('content')
         <div>
             <ul class="uk-breadcrumb">
-                <li><a href="{{url('home')}}"><span class="uk-text-large uk-text-bold">人员信息总览</span></a>
-                    @include('humans._create')&nbsp; <i class="uk-icon-large uk-icon-plus-square" style="line-height:28px"
-                                                        onclick="inputFile()"></i></li>
+                <li><a href="#"><span class="uk-text-large uk-text-bold">人员信息总览</span></a>
+                    @permission('maintaince') @include('humans._create')@endpermission&nbsp; <i class="uk-icon-large uk-icon-plus-square" style="line-height:28px"
+                                                        onclick="inputFile(this)"></i></li>
             </ul>
 
         @if(session('callback'))

@@ -12,7 +12,7 @@ class SelfTable extends Model
     protected $guarded = [];
 
     protected $hidden = [
-      'file_path'
+      'file_path','file_belongs'
     ];
     public function user()
     {

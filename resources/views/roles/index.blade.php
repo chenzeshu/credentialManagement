@@ -4,7 +4,7 @@
     {{--<div class="uk-grid uk-width-3-4">--}}
         <div class="">
             <ul class="uk-breadcrumb">
-                <li><a href="{{url('home')}}"><span class="uk-text-large uk-text-bold">角色总览</span></a>
+                <li><a href="#"><span class="uk-text-large uk-text-bold">角色总览</span></a>
                     @include('roles._create')&nbsp;
                   </li>
             </ul>

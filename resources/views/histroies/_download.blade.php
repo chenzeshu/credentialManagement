@@ -39,7 +39,7 @@
     <script>
         //管理员决定是否可以下载
         function decideDownload(obj, name, type, id) {
-            var url = "{{route("humans.decide")}}"
+            var url = "{{route("manage.decide")}}"
                 flag = $(obj).prop('checked') ? 1 : 0
                 data = {
                     _token:"{{csrf_token()}}",

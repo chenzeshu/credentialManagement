@@ -153,6 +153,23 @@ class SelfRepository
     public function softForeach($ids)
     {
         $softs = DB::table('soft_certificates')->whereIn('id', $ids)->get();
+        foreach ($softs as $soft){
+            $soft->path_auth = unserialize($soft->path_auth);
+            $soft->path_soft = unserialize($soft->path_soft);
+            foreach ($soft->path_auth as $ak => $auth){
+                $soft->path_auth[$ak] = [
+                    'path'=>$auth,
+                    'flag'=>0
+                ];
+            }
+            foreach ($soft->path_soft as $sk => $s){
+                $soft->path_soft[$sk] = [
+                    'path'=>$s,
+                    'flag'=>0
+                ];
+            }
+        }
+
         DB::transaction(function () use ($softs){
             foreach ($softs as $soft){
                 User::find(Auth::id())->selfTables()->firstOrCreate([
@@ -166,6 +183,6 @@ class SelfRepository
                 ]);
             }
         });
-        return '插入patents成功';
+        return '插入softs成功';
     }
 }

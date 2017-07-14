@@ -16,7 +16,7 @@ class credentials_6
     public function handle($request, Closure $next)
     {
         session(['credential'=>'credentials_6',
-            'name' => '第三方产品检测、鉴定']);
+            'name' => config('titles.credential_6')]);
         return $next($request);
     }
 }

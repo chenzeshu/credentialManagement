@@ -252,23 +252,5 @@ class HumansController extends Controller
         ];
     }
 
-    public function decide(Request $request)
-    {
-        $name = $request->name;  //数组的key,也是文件名
-        $flag = $request->flag;  //比如是0还是1,代表选中还是未选中,指是否允许下载
-        $type = $request->type;  //比如是path_i还是path_credit
-        $id = $request->id;
-        //todo 检索数据库
-        $detail = Histroy_detail::findOrFail($id);
-        $path = $detail->file_path;
-        $path = unserialize($path);
 
-        //todo 开始更新
-        $path[$type][$name]['flag'] = $flag;
-        $path = serialize($path);
-        $re =  $detail->update([
-            'file_path'=>$path
-        ]);
-        return $re===true ? "改变成功" : "改变失败";
-    }
 }

@@ -1,12 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
-
         <div>
             <ul class="uk-breadcrumb">
-                <li><a href="{{url('home')}}"><span class="uk-text-large uk-text-bold">{{session('name')}}总览</span></a>
-                    @include('patents._create')&nbsp; <i class="uk-icon-large uk-icon-plus-square" style="line-height:28px"
-                                                         onclick="inputFile()"></i></li>
+                <li><a href="#"><span class="uk-text-large uk-text-bold">{{session('name')}}总览</span></a>
+                    @permission('maintaince')@include('patents._create')@endpermission&nbsp; <i class="uk-icon-large uk-icon-plus-square" style="line-height:28px"
+                                                         onclick="inputFile(this)"></i></li>
             </ul>
 
             @if(session('callback'))
@@ -34,7 +33,6 @@
                     <th>专利类别</th>
                     <th>申请日期</th>
                     <th>授权日期</th>
-                    <th>授权公告日期</th>
                     <th>有效截止日期</th>
                     <th>维护截止年份</th>
                     <th>备注</th>
@@ -45,6 +43,22 @@
                 </tr>
                 </thead>
                 <tbody>
+                {{--用于patents._date使用--}}
+                <?php
+                $now_time = time();
+                $a_month_later = $now_time+2592000;
+                ?>
+                <style>
+                    .uk-button-warning{
+                        background-color: #efdd06;
+                        color: #fff;
+                        background-image: -webkit-linear-gradient(top,#e8c92f,#d6c60b);
+                        background-image: linear-gradient(to bottom,#e8c92f,#d6c60b);
+                        border-color: rgba(0,0,0,.2);
+                        border-bottom-color: rgba(0,0,0,.4);
+                        text-shadow: 0 -1px 0 rgba(0,0,0,.2);
+                    }
+                </style>
                 @foreach($patents as $patent)
                     <tr>
                         <td id="select-{{$patent->id}}" onclick="selectFile(this)">
@@ -57,8 +71,10 @@
                         <td>{{$patent->type}}</td>
                         <td>{{$patent->time_apply}}</td>
                         <td>{{$patent->time_start}}</td>
-                        <td>{{$patent->time_authorize}}</td>
-                        <td>{{$patent->time_end}}</td>
+                        <td>
+                            @include('patents._date')
+                            {{$patent->time_end}}</button>
+                        </td>
                         <td>{{$patent->time_end_year}}</td>
                         <td>@include('patents._remark')</td>
                         @permission('maintaince')

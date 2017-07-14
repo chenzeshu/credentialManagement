@@ -4,7 +4,7 @@
     {{--<div class="uk-grid uk-width-3-4">--}}
         <div class="">
             <ul class="uk-breadcrumb">
-                <li><a href="{{url('home')}}"><span class="uk-text-large uk-text-bold">用户总览</span></a>
+                <li><a href="#"><span class="uk-text-large uk-text-bold">用户总览</span></a>
                     <form method="post" action="{{route('users.selectusers')}}" class="uk-form" style="float:right">
                         <input type="hidden" name="_token" value="{{csrf_token()}}">
                         &nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="username" placeholder="用户姓名">

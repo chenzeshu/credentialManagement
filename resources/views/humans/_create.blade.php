@@ -25,6 +25,12 @@
             </div>
             <div class="uk-form-row">
                 <div class="uk-grid">
+                    <div class="uk-width-1-6">{!! Form::label('name','身份证号：') !!}</div>
+                    {!! Form::text('credit',null) !!}
+                </div>
+            </div>
+            <div class="uk-form-row">
+                <div class="uk-grid">
                     <div class="uk-width-1-6">{!! Form::label('name','部门：') !!}</div>
                     {!! Form::text('department',null) !!}
                 </div>

@@ -16,7 +16,8 @@ class credentials_2
     public function handle($request, Closure $next)
     {
         session(['credential'=>'credentials_2',
-            'name' => '获奖、荣誉表、高新技术产品']);
+            'name' => config('titles.credential_2')
+        ]);
         return $next($request);
     }
 }

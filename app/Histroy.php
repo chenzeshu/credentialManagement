@@ -9,6 +9,7 @@ class Histroy extends Model
 {
     use SoftDeletes;
     protected $guarded = [];
+    protected $appends = ['username'];
     protected $dates = ['deleted_at'];
 
     public function user()
@@ -25,4 +26,5 @@ class Histroy extends Model
     {
         return $this->hasMany('App\Histroy_detail');
     }
+
 }

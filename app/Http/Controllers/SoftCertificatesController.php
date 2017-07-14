@@ -69,14 +69,15 @@ class SoftCertificatesController extends Controller
         $path_soft = serialize($path_soft);
 
         $re = SoftCertificate::create([
-            'name'=>$request->name,
-            'id1'=>$request->id1,
-            'type'=>$request->type,
-            'time_start'=>$request->time_start,
-            'time_end'=>$request->time_end,
-            'path_auth'=>$path_auth,
-            'path_soft'=>$path_soft,
-            'remark'=>$request->remark
+            'name'=> $request->name,
+            'id1'=> $request->id1,
+            'id2'=> $request->id2,
+            'type'=> $request->type,
+            'time_start'=> $request->time_start,
+            'time_end'=> $request->time_end,
+            'path_auth'=> $path_auth,
+            'path_soft'=> $path_soft,
+            'remark'=> $request->remark
         ]);
         if($re){
             return Redirect::back()->with('callback', '新增成功!');
@@ -142,6 +143,7 @@ class SoftCertificatesController extends Controller
         $re = SoftCertificate::find($id)->update([
             'name'=>$request->name,
             'id1'=>$request->id1,
+            'id2'=>$request->id2,
             'type'=>$request->type,
             'time_start'=>$request->time_start,
             'time_end'=>$request->time_end,
@@ -167,7 +169,7 @@ class SoftCertificatesController extends Controller
     {
         $soft =  SoftCertificate::find($id);
         if(!empty($soft->path_auth)){
-            $path = unserialize($soft->path);
+            $path = unserialize($soft->path_auth);
             foreach ($path as $v){
                 Storage::delete($v);
             }

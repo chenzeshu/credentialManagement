@@ -22,6 +22,7 @@ class CreateHistroysTable extends Migration
             //思路： 前期，checker_id在提交时，已经指定了是高/钱，所以这基本是个固定的值
             //思路： 后期， role为checker的人，可以使用checkController进行check审批工作,然后index为本表所有和自己的id一样的人，check表可以将本表打上自己的user_id
             $table->integer('reason_type'); //提交审批的类型, 以后审批类型单独维护,可能要改成reason_id, 做成ORM
+            $table->string('reason_project'); //提交审批相关的项目名称
             $table->string('reason_words'); //提交审批的理由
             $table->integer('examine_type');  //表单的状态  0:提交审核中, 1: 审核通过, 2:驳回待修改;   理论上草稿状态不会出现
             $table->string('rejection_reason')->nullable(); //驳回理由

@@ -9,6 +9,8 @@
 namespace App\Repositories;
 
 
+use App\User;
+
 class HistroyRepository
 {
     public function checkType($histroy)
@@ -28,6 +30,19 @@ class HistroyRepository
         }else{
             return  true;
         }
+    }
+
+    /**
+     * 拿到审批人
+     */
+    public function getChecker($reason_type)
+    {
+        if($reason_type==0){
+            $checker= User::where('name','钱正宇')->first();
+        }else{
+            $checker= User::where('name','高晓峰')->first();
+        }
+        return $checker;
     }
 
 }

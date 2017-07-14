@@ -5,6 +5,7 @@
         <ul class="uk-breadcrumb">
             <li><a href="{{route('histroy.index')}}"><span class="uk-text-large uk-text-bold">{{\Auth::user()->name}}的提交历史</span></a></li>
             <li class="uk-active"><span class="uk-text-large uk-text-bold">通过审批</span></li>
+            <li><button class="uk-button" onclick="history.go(-1)">返回</button></li>
         </ul>
         @if($errors->any())
             @foreach($errors->all() as $error)

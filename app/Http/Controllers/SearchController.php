@@ -24,6 +24,10 @@ class SearchController extends Controller
     {
         $type = $request->search_type;
         $name = $request->name;
+        return $this->decideWhichToReturn($type, $name);
+    }
+
+    private function decideWhichToReturn($type, $name){
         switch ($type){
             case 0:
                 $humans = $this->type_0($name);
@@ -59,18 +63,30 @@ class SearchController extends Controller
                 break;
             case 8:
                 $softs = SoftCertificate::where('name','like',"%{$name}%")->paginate(15);
+                //todo 反序列化
+                foreach ($softs as $soft){
+                    $soft->path_auth = unserialize($soft->path_auth);
+                    $soft->path_soft = unserialize($soft->path_soft);
+                }
                 return view('softs.index', compact('softs'));
                 break;
             case 9:
                 $patents = Patent::where('name','like',"%{$name}%")->paginate(15);
+                foreach ($patents as $patent){
+                    $patent->path = unserialize($patent->path);
+                }
                 return view('patents.index', compact('patents'));
                 break;
             default:
                 break;
         }
-
     }
 
+    /**
+     * 人事表
+     * @param $name
+     * @return mixed
+     */
     public function type_0($name)
     {
         $humans = Human::where('name', 'like', '%'.$name.'%')->paginate(15);
@@ -85,6 +101,11 @@ class SearchController extends Controller
         return $humans;
     }
 
+    /**
+     * 基本资质表
+     * @param $name
+     * @return mixed
+     */
     public function type_1($name)
     {
         $credentials = credential_basic::where('name', 'like', '%'.$name.'%')->paginate(15);
@@ -96,6 +117,11 @@ class SearchController extends Controller
         return $credentials;
     }
 
+    /**
+     * 服务基地、研发中心表
+     * @param $name
+     * @return mixed
+     */
     public function type_2($name)
     {
         $credentials = credential_1::where('name', 'like', '%'.$name.'%')->paginate(15);
@@ -109,6 +135,11 @@ class SearchController extends Controller
         return $credentials;
     }
 
+    /**
+     * 获奖、荣誉表、高新技术产品表
+     * @param $name
+     * @return mixed
+     */
     public function type_3($name)
     {
         $credentials = credential_2::where('name', 'like', '%'.$name.'%')->paginate(15);
@@ -120,9 +151,14 @@ class SearchController extends Controller
         return $credentials;
     }
 
+    /**
+     * 服务感谢信表
+     * @param $name
+     * @return mixed
+     */
     public function type_4($name)
     {
-        $credentials = credential_4::where('name', 'like', '%'.$name.'%')->paginate(15);
+        $credentials = credential_3::where('name', 'like', '%'.$name.'%')->paginate(15);
         foreach ($credentials as $credential){
             $credential->path = unserialize($credential->path);
         }
@@ -131,9 +167,14 @@ class SearchController extends Controller
         return $credentials;
     }
 
+    /**
+     * 商标表
+     * @param $name
+     * @return mixed
+     */
     public function type_5($name)
     {
-        $credentials = credential_5::where('name', 'like', '%'.$name.'%')->paginate(15);
+        $credentials = credential_4::where('name', 'like', '%'.$name.'%')->paginate(15);
         foreach ($credentials as $credential){
             $credential->path = unserialize($credential->path);
         }
@@ -142,9 +183,14 @@ class SearchController extends Controller
         return $credentials;
     }
 
+    /**
+     * 体系、贯标数据表
+     * @param $name
+     * @return mixed
+     */
     public function type_6($name)
     {
-        $credentials = credential_6::where('name', 'like', '%'.$name.'%')->paginate(15);
+        $credentials = credential_5::where('name', 'like', '%'.$name.'%')->paginate(15);
         foreach ($credentials as $credential){
             $credential->path = unserialize($credential->path);
         }
@@ -153,6 +199,12 @@ class SearchController extends Controller
 
         return $credentials;
     }
+
+    /**
+     * 第三方产品监测、鉴定数据库
+     * @param $name
+     * @return mixed
+     */
     public function type_7($name)
     {
         $credentials = credential_6::where('name', 'like', '%'.$name.'%')->paginate(15);
@@ -160,7 +212,7 @@ class SearchController extends Controller
             $credential->path = unserialize($credential->path);
         }
         session(['credential'=>'credentials_6',
-            'name' => '第三方产品监测、鉴定']);
+            'name' => '第三方产品检测、鉴定']);
         return $credentials;
     }
 

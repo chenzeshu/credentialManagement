@@ -20,3 +20,16 @@
 
 .clear{clear:both;height:0;overflow:hidden;}
 
+.active{color:red}
+
+/*这个css没有用，只能在使用的文件(各个文件夹下index.blade.php)里添加*/
+.uk-button-warning{
+  background-color: #efdd06;
+  color: #fff;
+  background-image: -webkit-linear-gradient(top,#e8c92f,#d6c60b);
+  background-image: linear-gradient(to bottom,#e8c92f,#d6c60b);
+  border-color: rgba(0,0,0,.2);
+  border-bottom-color: rgba(0,0,0,.4);
+  text-shadow: 0 -1px 0 rgba(0,0,0,.2);
+}
+

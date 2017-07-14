@@ -3,7 +3,7 @@
 @section('content')
         <div>
             <ul class="uk-breadcrumb">
-                <li><a href="{{url('home')}}"><span class="uk-text-large uk-text-bold">{{\Auth::user()->name}}的提交历史表</span></a></li>
+                <li><a href="#"><span class="uk-text-large uk-text-bold">{{\Auth::user()->name}}的提交历史表</span></a></li>
             </ul>
             @if(session('callback'))
                 <div class="uk-alert uk-alert-success" data-uk-alert>
@@ -26,6 +26,7 @@
                     <th>提交日期</th>
                     <th>审批人</th>
                     <th>提交理由</th>
+                    <th>项目名称</th>
                     <th>过期时间</th>
                     <th>审批状态</th>
                 </tr>
@@ -36,6 +37,7 @@
                         <td>{{$histroy->created_at}}</td>
                         <td>{{$histroy->checker->name}}</td>
                         <td>{{$histroy->reason_words}}</td>
+                        <td>{{$histroy->reason_project}}</td>
                         <td>{{$histroy->end_at}}</td>
                         <td>
                             @include('histroies._details')

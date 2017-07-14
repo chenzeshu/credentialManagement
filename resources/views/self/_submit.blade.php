@@ -17,6 +17,10 @@
                     <option value="4">其他(高晓峰)</option>
                 </select> <strong style="color:red">★</strong>
             </div>
+            <br>
+            <div class="ukform-row">
+                <input type="text" placeholder="请填写项目名称" name="reason_project">
+            </div>
             <div class="uk-form-row reason_hook" style="display: none">
                 <input type="text" placeholder="提交审批理由" name="reason_words" class="uk-form-width-large"> <strong style="color:red">★</strong>
             </div>

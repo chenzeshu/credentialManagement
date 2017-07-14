@@ -3,7 +3,7 @@
 @section('content')
         <div>
             <ul class="uk-breadcrumb">
-                <li><a href="{{url('home')}}"><span class="uk-text-large uk-text-bold">{{\Auth::user()->name}}的审批决策表</span></a></li>
+                <li><a href="#"><span class="uk-text-large uk-text-bold">{{\Auth::user()->name}}的审批决策表</span></a></li>
             </ul>
             @if(session('callback'))
                 <div class="uk-alert uk-alert-success" data-uk-alert>
@@ -25,6 +25,7 @@
                 <tr>
                     <th>提交日期</th>
                     <th>提交人</th>
+                    <th></th>
                     <th>提交理由</th>
                     <th>过期时间</th>
                     <th>查看细节</th>
@@ -38,6 +39,7 @@
                     <tr>
                         <td>{{$histroy->created_at}}</td>
                         <td>{{$histroy->user->name}}</td>
+                        <td>{{$histroy->reason_project}}</td>
                         <td>{{$histroy->reason_words}}</td>
                         <td>{{$histroy->end_at}}</td>
                         <td><a href="{{route('manage.show', $histroy->id)}}" class="uk-button">查看细节</a></td>
@@ -49,6 +51,7 @@
                             <button class="uk-button" onclick="rejectHis({{$histroy->id}})"><i class="uk-icon-hover uk-icon-close (alias)" style="color:red"></i></button>
                         </td>
                         <td>
+                            <button class="uk-button">修改</button>
                             @include('manage._delete')
                         </td>
                     </tr>

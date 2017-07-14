@@ -3,7 +3,7 @@
 @section('content')
         <div>
             <ul class="uk-breadcrumb">
-                <li><a href="{{url('home')}}"><span class="uk-text-large uk-text-bold">{{\Auth::user()->name}}的待提交审批表</span></a>
+                <li><a href="#"><span class="uk-text-large uk-text-bold">{{\Auth::user()->name}}的待提交审批表</span></a>
                     @include('self._deleteAll')
                     @include('self._submit')</li>
             </ul>
@@ -19,7 +19,7 @@
                 <thead>
                 <tr>
                     <th>文件名称</th>
-                    <th>文件属于</th>
+                    {{--<th>文件属于</th>--}}
                     <th>提交日期</th>
                     <th colspan="2">操作</th>
                 </tr>
@@ -28,7 +28,7 @@
                 @foreach($selfs as $self)
                     <tr>
                         <td>{{$self->file_name}}</td>
-                        <td>{{$self->file_belongs}}</td>
+                        {{--<td>{{$self->file_belongs}}</td>--}}
                         <td>{{$self->created_at}}</td>
                         <td>
                             @include('self._delete')

@@ -16,7 +16,7 @@ class credentials_4
     public function handle($request, Closure $next)
     {
         session(['credential'=>'credentials_4',
-            'name' => '商标']);
+            'name' =>config('titles.credential_4')]);
         return $next($request);
     }
 }

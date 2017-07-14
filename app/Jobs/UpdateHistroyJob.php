@@ -19,22 +19,24 @@ class UpdateHistroyJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    protected $reason_type;
-    protected $reason_words;
-    protected $checker;
-    protected $id;
+    protected $checker;     //审批者
+    protected $id;      //提交人的id
+    protected $reason_type;  //提交审批类型
+    protected $reason_project; //提交审批相关的项目名称
+    protected $reason_words;    //提交审批理由
 
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct(User $checker, $id, $reason_type, $reason_words)
+    public function __construct(User $checker, $id, $reason_type, $reason_project, $reason_words)
     {
-        $this->reason_type = $reason_type;
-        $this->reason_words = $reason_words;
         $this->checker = $checker;
         $this->id = $id;
+        $this->reason_type = $reason_type;
+        $this->reason_project = $reason_project;
+        $this->reason_words = $reason_words;
     }
 
     /**
@@ -53,6 +55,7 @@ class UpdateHistroyJob implements ShouldQueue
             $histroy = User::findOrFail($this->id)->histroies()->create([
                 'checker_id'=>$checker->id,
                 'reason_type'=>$this->reason_type,
+                'reason_project'=> $this->reason_project,
                 'reason_words'=>$this->reason_words,
                 'examine_type'=>0 //审批中
             ]);

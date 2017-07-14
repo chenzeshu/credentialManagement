@@ -32,7 +32,13 @@
         /**
          * 将选中的文件id提交到个人审批表单
          */
-        function inputFile() {
+        function inputFile(obj) {
+            $(obj).fadeOut()
+
+            setTimeout(function () {
+                $(obj).fadeIn()
+            }, 100)
+
             if(ele.length ===0){
                 alert("你还没有选择文件");
             }

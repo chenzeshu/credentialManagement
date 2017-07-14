@@ -16,7 +16,8 @@ class credentials_basic
     public function handle($request, Closure $next)
     {
         session(['credential'=>'credentials_basic',
-            'name' => '基本资质']);
+            'name' => config('titles.credential_basic')
+        ]);
         return $next($request);
     }
 }

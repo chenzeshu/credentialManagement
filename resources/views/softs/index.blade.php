@@ -3,9 +3,9 @@
 @section('content')
         <div>
             <ul class="uk-breadcrumb">
-                <li><a href="{{url('home')}}"><span class="uk-text-large uk-text-bold">{{session('name')}}总览</span></a>
-                    @include('softs._create')&nbsp; <i class="uk-icon-large uk-icon-plus-square" style="line-height:28px"
-                                                       onclick="inputFile()"></i></li>
+                <li><a href="#"><span class="uk-text-large uk-text-bold">{{session('name')}}总览</span></a>
+                    @permission('maintaince')@include('softs._create')@endpermission&nbsp; <i class="uk-icon-large uk-icon-plus-square" style="line-height:28px"
+                                                       onclick="inputFile(this)"></i></li>
             </ul>
 
             @if(session('callback'))
@@ -29,6 +29,7 @@
                     <th><button onclick='cancelAllFiles()' class="uk-button uk-button-small">全选/取消</button></th>
                     <th>软件著作权</th>
                     <th>著作权登记号</th>
+                    <th>产品登记号</th>
                     <th>软件类别</th>
                     <th>颁发日期</th>
                     <th>有效日期</th>
@@ -40,6 +41,22 @@
                 </tr>
                 </thead>
                 <tbody>
+                {{--用于patents._date使用--}}
+                <?php
+                $now_time = time();
+                $a_month_later = $now_time+2592000;
+                ?>
+                <style>
+                    .uk-button-warning{
+                        background-color: #efdd06;
+                        color: #fff;
+                        background-image: -webkit-linear-gradient(top,#e8c92f,#d6c60b);
+                        background-image: linear-gradient(to bottom,#e8c92f,#d6c60b);
+                        border-color: rgba(0,0,0,.2);
+                        border-bottom-color: rgba(0,0,0,.4);
+                        text-shadow: 0 -1px 0 rgba(0,0,0,.2);
+                    }
+                </style>
                 @foreach($softs as $soft)
                     <tr>
                         <td id="select-{{$soft->id}}" onclick="selectFile(this)">
@@ -48,9 +65,13 @@
                         </td>
                         <td>{{$soft->name}}</td>
                         <td>{{$soft->id1}}</td>
+                        <td>{{$soft->id2}}</td>
                         <td>{{$soft->type}}</td>
                         <td>{{$soft->time_start}}</td>
-                        <td>{{$soft->time_end}}</td>
+                        <td>
+                            @include('softs._date')
+                            {{$soft->time_end}}</button>
+                        </td>
                         <td>@include('softs._remark')</td>
                         @permission('maintaince')
                         <td>@include('softs._download')</td>

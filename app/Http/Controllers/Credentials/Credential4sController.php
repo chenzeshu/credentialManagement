@@ -43,7 +43,7 @@ class Credential4sController extends Controller
         $path = $this->repo->storeFile($request, 'credentials_4');
         $re = $this->repo->storeData($request, 'credential_4', $path);
         if($re){
-            return Redirect::back()->with('callback', '修改成功!');
+            return Redirect::back()->with('callback', '新增成功!');
         }else{
             return Redirect::back()->withErrors('新增失败,请重试');
         }
@@ -85,9 +85,9 @@ class Credential4sController extends Controller
         $path = $this->repo->storeFile($request, 'credential_4', $path);
         $re = $this->repo->updateDate($request, $credential_4, $path);
         if($re){
-            return Redirect::back()->with('callback', '删除成功!');
+            return Redirect::back()->with('callback', '修改成功!');
         }else{
-            return Redirect::back()->withErrors('新增失败,请重试');
+            return Redirect::back()->withErrors('修改失败,请重试');
         }
     }
 

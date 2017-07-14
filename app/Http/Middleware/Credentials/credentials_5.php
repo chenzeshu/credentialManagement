@@ -16,7 +16,7 @@ class credentials_5
     public function handle($request, Closure $next)
     {
         session(['credential'=>'credentials_5',
-            'name' => '体系贯标数据']);
+            'name' => config('titles.credential_5')]);
         return $next($request);
     }
 }

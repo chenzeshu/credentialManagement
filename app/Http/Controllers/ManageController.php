@@ -3,9 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Histroy;
+use App\Histroy_detail;
+use App\Repositories\ManageRepository;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Mockery\Exception;
 
 class ManageController extends Controller
 {
@@ -14,8 +18,9 @@ class ManageController extends Controller
     /**
      * 权限:审批者,目前很无脑,就是2个人,都不用自行维护
      */
-    function __construct()
+    function __construct(ManageRepository $repo)
     {
+        $this->repo = $repo;
         //todo 报错信息还没有做
         $this->middleware('role:checker');
     }
@@ -60,11 +65,10 @@ class ManageController extends Controller
     public function show($id)
     {
         //难点：无法间接修改二维数组内部的值的
-        $details = Histroy::findOrFail($id)->histroy_details()->paginate(15);
-        foreach ($details as $k=>$detail){
-              $detail->file_path = unserialize($detail->file_path);
-        }
-        return view('histroies._show', compact('details'));
+        $histroy = Histroy::find($id);
+        $info = $this->repo->getInfoForShow($histroy);
+        $details = $this->repo->getDetailsForShow($histroy);
+        return view('manage._show', compact('details','info'));
     }
 
     /**
@@ -83,4 +87,44 @@ class ManageController extends Controller
         return redirect()->back()->with('callback', '删除成功');
     }
 
+    /**
+     * AJAX
+     * 管理员决定humans或softs的多个文件里的单个文件是否可以下载
+     * @param Request $request
+     * @return string
+     */
+    public function decide(Request $request)
+    {
+        $name = $request->name;  //数组的key,也是文件名
+        $flag = $request->flag;  //比如是0还是1,代表选中还是未选中,指是否允许下载
+        $type = $request->type;  //比如是path_i还是path_credit
+        $id = $request->id;
+        //todo 检索数据库
+        $detail = Histroy_detail::findOrFail($id);
+        $path = $detail->file_path;
+        $path = unserialize($path);
+
+        //todo 开始更新
+        $path[$type][$name]['flag'] = $flag;
+        $path = serialize($path);
+        $re =  $detail->update([
+            'file_path'=>$path
+        ]);
+        return $re===true ? "改变成功" : "改变失败";
+    }
+
+    /**
+     * 删除用户提交的表单的内部文件
+     * @param $id
+     * @return $this|\Illuminate\Http\RedirectResponse
+     */
+    public function destroy_detail($id)
+    {
+        $re = Histroy_detail::findOrFail($id)->delete();
+        if($re){
+            return redirect()->back()->with('callback', '删除成功');
+        }else{
+            return redirect()->back()->withErrors('删除失败');
+        }
+    }
 }

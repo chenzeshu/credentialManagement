@@ -18,6 +18,7 @@ class CreateSoftCertificatesTable extends Migration
             $table->string('type')->nullable();  //软件类别
             $table->string('name');  //软件名称
             $table->string('id1')->nullable();  //著作权登记号
+//            $table->string('id2')->nullable();  //产品登记号
             $table->string('time_start')->nullable();
             $table->string('time_end')->nullable();
             $table->string('path_auth')->nullable(); //著作权扫描件 二期数组

@@ -91,7 +91,7 @@ class CredentialBasicController extends Controller
         if($re){
             return Redirect::back()->with('callback', '修改成功!');
         }else{
-            return Redirect::back()->withErrors('新增失败,请重试');
+            return Redirect::back()->withErrors('修改失败,请重试');
         }
     }
 
