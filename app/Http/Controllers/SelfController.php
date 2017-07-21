@@ -71,49 +71,6 @@ class SelfController extends Controller
         $ids = $request->fileId;
         $type = $request->type;
         //使用了事务+in优化sql
-        switch ($type){
-            case 'human':
-                return $this->repo->humanForeach($ids);
-                break;
-            case 'credentials_basic':
-                $tableName = "credential_basics";  //todo 注意 middleware是`credentials_basic`,但是表和model都是credential_basic(s),这虽然有点尴尬,但是不影响.
-                return $this->repo->credentialForeach($tableName, $ids);
-                break;
-            case 'credentials_1':
-                $tableName = "credential_1s";
-                return $this->repo->credentialForeach($tableName, $ids);
-                break;
-            case 'credentials_2':
-                $tableName = "credential_2s";
-                return $this->repo->credentialForeach($tableName, $ids);
-                break;
-            case 'credentials_3':
-                $tableName = "credential_3s";
-                return $this->repo->credentialForeach($tableName, $ids);
-                break;
-            case 'credentials_4':
-                $tableName = "credential_4s";
-                return $this->repo->credentialForeach($tableName, $ids);
-                break;
-            case 'credentials_5':
-                $tableName = "credential_5s";
-                return $this->repo->credentialForeach($tableName, $ids);
-                break;
-            case 'credentials_6':
-                $tableName = "credential_6s";
-                return $this->repo->credentialForeach($tableName, $ids);
-                break;
-            case 'patent':
-                return $this->repo->patentForeach($ids);
-                break;
-            case 'soft':
-                return $this->repo->softForeach($ids);
-                break;
-            default:
-                break;
-        }
-
+        return $this->repo->switchForSelfTable($type, $ids);
     }
-
-
 }

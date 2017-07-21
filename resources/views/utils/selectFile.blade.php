@@ -1,4 +1,5 @@
- <script>
+<div id="histroy_id" data-content="{{session('histroy_id')}}"></div>
+<script>
         /**
          * @param ele是被选中的文件的id的数组集合
          * @type {Array}
@@ -51,6 +52,39 @@
                 }
                 $.post(url, data, function (res) {
                    alert('提交成功,且已自动过滤重复内容')
+                })
+            }
+        }
+
+        /**
+         *  将选中的文件添加到审批者工具表
+         */
+        function addFileToUtil(obj) {
+            //检查session('histroy_id')是否存在
+            var histroyId =  $('#histroy_id').data('content');
+            if( histroyId === ''|| histroyId === null){
+                alert('请审批者通过审批页面点击“查看细节”进入本页面后，再点击本按钮')
+                return
+            }
+
+            $(obj).fadeOut()
+
+            setTimeout(function () {
+                $(obj).fadeIn()
+            }, 100)
+
+            if(ele.length ===0){
+                alert("你还没有选择文件");
+            }
+            else{
+                var url = "{{route('manage_util.store')}}";
+                var data = {
+                    _token:"{{csrf_token()}}",
+                    fileId : ele,
+                    type:"{{config('transforms.human')}}"
+                }
+                $.post(url, data, function (res) {
+                    alert('提交成功,且已自动过滤重复内容')
                 })
             }
         }

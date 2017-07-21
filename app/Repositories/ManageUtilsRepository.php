@@ -2,28 +2,31 @@
 /**
  * Created by PhpStorm.
  * User: Administrator
- * Date: 2017/5/31
- * Time: 17:02
+ * Date: 2017/7/21
+ * Time: 11:09
  */
 
 namespace App\Repositories;
+
+
+use App\Manage_util;
 use App\Repositories\CommonUtils\FileUtils;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
-
-class SelfRepository extends FileUtils
+class ManageUtilsRepository extends FileUtils
 {
-    //本类只书写了selfTables的方法，公用方法已被提取到FileUtils类中
+//    本类只书写了manageUtils表的方法，公用方法已被提取到FileUtils类中
 
+//    注意：session('histroy_id')是在点击“查看细节”按钮时存储的
     /**
-     * selfTable的repo控制器
+     * manage_utils——审批员工具表的repo控制器
      * @param $type
      * @param $ids
      * @return string
      */
-    public function switchForSelfTable($type, $ids)
+    public function switchForManageUtil($type, $ids)
     {
         switch ($type){
             case 'human':
@@ -82,7 +85,8 @@ class SelfRepository extends FileUtils
         //todo 使用事务优化sql(量没有到达万级,不拼接)
         DB::transaction(function () use ($humans){
             foreach ($humans as $human){
-                User::find(Auth::id())->selfTables()->firstOrCreate([
+                Manage_util::firstOrCreate([
+                    'history_id'=>session('histroy_id'),
                     'file_id'=>$human->id,
                     'file_name'=>$human->name,
                     'file_belongs' => 'humans',
@@ -111,7 +115,8 @@ class SelfRepository extends FileUtils
         $credentials = DB::table($tableName)->whereIn('id', $ids)->get();
         DB::transaction(function () use ($credentials, $tableName){
             foreach ($credentials as $credential){
-                User::find(Auth::id())->selfTables()->firstOrCreate([
+                Manage_util::firstOrCreate([
+                    'history_id'=>session('histroy_id'),
                     'file_id'=> $credential->id,
                     'file_name'=> $credential->name,
                     'file_belongs' => $tableName,  //填表名而不是model名
@@ -132,7 +137,8 @@ class SelfRepository extends FileUtils
         $patents = DB::table('patents')->whereIn('id', $ids)->get();
         DB::transaction(function () use ($patents){
             foreach ($patents as $patent){
-                User::find(Auth::id())->selfTables()->firstOrCreate([
+                Manage_util::firstOrCreate([
+                    'history_id'=>session('histroy_id'),
                     'file_id'=> $patent->id,
                     'file_name'=> $patent->name,
                     'file_belongs' => 'patents',  //填表名而不是model名
@@ -156,7 +162,8 @@ class SelfRepository extends FileUtils
 
         DB::transaction(function () use ($softs){
             foreach ($softs as $soft){
-                User::find(Auth::id())->selfTables()->firstOrCreate([
+                Manage_util::firstOrCreate([
+                    'history_id'=>session('histroy_id'),
                     'file_id'=> $soft->id,
                     'file_name'=> $soft->name,
                     'file_belongs' => 'soft_certificates',  //填表名而不是model名

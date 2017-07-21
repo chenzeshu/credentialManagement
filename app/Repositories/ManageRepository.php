@@ -32,7 +32,7 @@ class ManageRepository
      */
     public function getDetailsForShow($histroy)
     {
-        $details = $histroy->histroy_details()->paginate(15);
+        $details = $histroy->histroy_details()->orderBy('id', 'desc')->paginate(15);
         foreach ($details as $k=>$detail){
             $detail->file_path = unserialize($detail->file_path);
         }

@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <!-- CSRF Token -->
+
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', '管理平台') }}</title>
@@ -95,7 +95,7 @@
             </ul>
     @endif
     <!--right side-->
-
+        {{--导航登陆--}}
         <div class="uk-navbar-content uk-navbar-flip  uk-hidden-small  margin-right-100">
             <ul class="uk-navbar-nav">
                 <!-- Authentication Links -->
@@ -175,6 +175,9 @@
                             <ul class="uk-nav-sub">
                                 <li><a href="{{route('selfs.index')}}">未审批表</a></li>
                                 <li><a href="{{route('histroy.index')}}">我的提交历史</a></li>
+                                @role('checker')
+                                <li><a href="{{route('manage_util.index')}}">我的审批工具表</a></li>
+                                @endrole
                             </ul>
                         </li>
                         <li class="uk-parent">
@@ -303,6 +306,10 @@
             }else{
                 $('#search-button').prop('disabled', false)
             }
+        }
+        
+        function showTips() {
+            layer.tips('请选择栏目进行添加', '#nav0');
         }
     </script>
     @yield('customerJS')

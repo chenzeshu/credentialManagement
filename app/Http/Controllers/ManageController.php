@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Histroy;
 use App\Histroy_detail;
+use App\Manage_util;
 use App\Repositories\ManageRepository;
 use App\User;
 use Illuminate\Http\Request;
@@ -68,6 +69,7 @@ class ManageController extends Controller
         $histroy = Histroy::find($id);
         $info = $this->repo->getInfoForShow($histroy);
         $details = $this->repo->getDetailsForShow($histroy);
+        session(['histroy_id' => $histroy->id]);
         return view('manage._show', compact('details','info'));
     }
 
@@ -77,7 +79,7 @@ class ManageController extends Controller
     public function destroy($id)
     {
         DB::transaction(function () use ($id){
-            $histroy = Histroy::findorFail($id);
+            $histroy = Histroy::findOrFail($id);
             //软删除histroy_details中对应的数据
             $histroy->histroy_details()->delete();
             //软删除histroy中对应的数据
@@ -110,7 +112,7 @@ class ManageController extends Controller
         $re =  $detail->update([
             'file_path'=>$path
         ]);
-        return $re===true ? "改变成功" : "改变失败";
+        return $re === true ? "改变成功" : "改变失败";
     }
 
     /**
@@ -127,4 +129,5 @@ class ManageController extends Controller
             return redirect()->back()->withErrors('删除失败');
         }
     }
+
 }

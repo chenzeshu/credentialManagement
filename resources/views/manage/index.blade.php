@@ -23,9 +23,10 @@
             <table class="uk-table uk-table-hover uk-table-striped uk-table-condensed">
                 <thead>
                 <tr>
+                    <th>id</th>
                     <th>提交日期</th>
                     <th>提交人</th>
-                    <th></th>
+                    <th>提交项目</th>
                     <th>提交理由</th>
                     <th>过期时间</th>
                     <th>查看细节</th>
@@ -37,11 +38,12 @@
                 <tbody>
                 @foreach($histroies as $histroy)
                     <tr>
-                        <td>{{$histroy->created_at}}</td>
+                        <td>{{$histroy->id}}</td>
+                        <td width="160px">{{$histroy->created_at}}</td>
                         <td>{{$histroy->user->name}}</td>
                         <td>{{$histroy->reason_project}}</td>
                         <td>{{$histroy->reason_words}}</td>
-                        <td>{{$histroy->end_at}}</td>
+                        <td width="160px">{{$histroy->end_at}}</td>
                         <td><a href="{{route('manage.show', $histroy->id)}}" class="uk-button">查看细节</a></td>
                         <td>
                             @include('manage._details')
@@ -51,7 +53,6 @@
                             <button class="uk-button" onclick="rejectHis({{$histroy->id}})"><i class="uk-icon-hover uk-icon-close (alias)" style="color:red"></i></button>
                         </td>
                         <td>
-                            <button class="uk-button">修改</button>
                             @include('manage._delete')
                         </td>
                     </tr>

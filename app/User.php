@@ -40,6 +40,13 @@ class User extends Authenticatable
     }
 
     /**
+     * manage_utils是审批员工具表
+     */
+    public function manage_utils()
+    {
+        return $this->hasMany('App\Manage_util');
+    }
+    /**
      * histroy是个人提交的审批表的总历史（审批表总览）
      */
     public function histroies()

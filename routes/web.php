@@ -27,7 +27,7 @@ Route::group(['middleware'=>['auth','show_count']],function (){
 //      用户:私人审批表
     Route::get('/selfs/destroyAll','SelfController@destroyAll')->name('self.destroyAll'); //todo 删除临时审批表下本用户的文件信息
     Route::resource('/selfs', 'SelfController');
-    Route::post('/inputFile', 'SelfController@inputFile')->name('self.input')->middleware('throttle:15,1'); //用户选择文件并加入临时审批表, 1分钟只能选择提交5次
+    Route::post('/inputFile', 'SelfController@inputFile')->name('self.input')->middleware('throttle:15,1'); //用户选择文件并加入临时审批表, 1分钟只能选择提交15次
 
 //      历史表
     Route::get('/histroy/download/{path}', 'HistroyController@download')->name('histroy.download');
@@ -94,6 +94,10 @@ Route::group(['middleware'=>['auth','show_count']],function (){
     Route::post('manage/decide', 'ManageController@decide')->name('manage.decide');  //审批者决定这个文件是否可以被下载
     Route::get('manage/destroy_detail/{detail_id}', 'ManageController@destroy_detail')->name('manage.destroy_detail');  //审批者决定这个文件是否可以被下载
     Route::resource('manage', 'ManageController');
+
+//      审批工具
+    Route::get('manage_util/ensure', 'ManageUtilController@ensure')->name('manage_util.ensure');
+    Route::resource('manage_util','ManageUtilController');
 
 //      文件检索
     Route::any('/search', 'SearchController@search')->name('search.search')->middleware('throttle:15,1'); //每分钟只允许搜索5次

@@ -5,9 +5,13 @@
             <ul class="uk-breadcrumb">
                 <li><a href="#"><span class="uk-text-large uk-text-bold">人员信息总览</span></a>
                     @permission('maintaince') @include('humans._create')@endpermission&nbsp; <i class="uk-icon-large uk-icon-plus-square" style="line-height:28px"
-                                                        onclick="inputFile(this)"></i></li>
+                                                        onclick="inputFile(this)"></i>
+                @role('checker')
+                    &nbsp;&nbsp;&nbsp;<i class="uk-icon-large uk-icon-upload" style="line-height:28px;cursor: pointer"
+                    onclick="addFileToUtil(this)"></i>
+                @endrole
+                </li>
             </ul>
-
         @if(session('callback'))
             <div class="uk-alert uk-alert-success" data-uk-alert>
                 <a href="" class="uk-alert-close uk-close"></a>
@@ -70,6 +74,7 @@
                         <td>{{$human->email}}</td>
                         <td>{{$human->phone}}</td>
                         <td>@include('humans._remark')</td>
+
                         @permission('maintaince')
                         <td>@include('humans._download')</td>
                         <td>
@@ -87,6 +92,8 @@
         </div>
 
 @endsection
+
+
 
 
 

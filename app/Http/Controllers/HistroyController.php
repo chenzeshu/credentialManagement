@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\DB;
 
 class HistroyController extends Controller
 {
+    //职责： 用户提交临时表去审批并形成提交历史
+
     protected $repo;
 
     public function __construct(HistroyRepository $repo)
@@ -42,13 +44,8 @@ class HistroyController extends Controller
         if(!$request->reason_words){
             return redirect()->back()->withErrors('提交理由不能为空');
         }
-        //todo 逻辑开始
-        //拿到审批人
-        $checker = $this->repo->getChecker($request->reason_type);
-        //todo 触发事件进入队列
-        $job = (new UpdateHistroyJob($checker, Auth::id(), $request->reason_type, $request->reason_project, $request->reason_words))->onQueue('foo');
-        $this->dispatch($job);
-
+        //todo 提交事件到队列
+        $this->repo->dispatchUpdateToQueue($request);
         return redirect()->route('histroy.index')->with('callback', '提交成功,请稍后刷新页面,等待审批');
 
     }
@@ -60,19 +57,13 @@ class HistroyController extends Controller
     public function show($id)
     {
         $histroy = Histroy::findOrFail($id);
-        $this->repo->checkType($histroy); //todo 防止通过url绕过按钮
-        $re = $this->repo->checkDate($histroy); //todo 验证是否过期
-
+        $re = $this->repo->check($histroy); //todo 防止通过url绕过按钮 + 是否过期
         if($re){
-            $details = $histroy->histroy_details()->paginate(15);
-            foreach ($details as $detail){
-                $detail->file_path = unserialize($detail->file_path);
-            }
+            $details = $this->repo->transformDetail($histroy);
             return view('histroies._show', compact('details'));
         }else{
             return redirect()->route('histroy.index')->withErrors('已过期');
         }
-
     }
 
     public function download($path)
