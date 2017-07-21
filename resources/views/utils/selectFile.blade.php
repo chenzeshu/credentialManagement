@@ -7,7 +7,7 @@
         var ele = []
 
         /**
-         *  选中文件+改变图标状态
+         *  选中文件 + 改变图标状态
          */
         function selectFile(obj) {
             //因为checkbox有全选的bug，所以用了其他方法
@@ -65,7 +65,7 @@
             if( histroyId === ''|| histroyId === null){
                 alert('请审批者通过审批页面点击“查看细节”进入本页面后，再点击本按钮')
                 return
-            }
+            };
 
             $(obj).fadeOut()
 
@@ -81,7 +81,7 @@
                 var data = {
                     _token:"{{csrf_token()}}",
                     fileId : ele,
-                    type:"{{config('transforms.human')}}"
+                    type:"{{session('credential')}}"
                 }
                 $.post(url, data, function (res) {
                     alert('提交成功,且已自动过滤重复内容')

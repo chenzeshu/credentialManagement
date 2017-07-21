@@ -9,7 +9,12 @@
                         @include('credentials._create')
                     @endpermission
                     &nbsp; <i class="uk-icon-large uk-icon-plus-square" style="line-height:28px"
-                                                             onclick="inputFile(this)"></i></li>
+                                                             onclick="inputFile(this)"></i>
+                    @role('checker')
+                    &nbsp;&nbsp;&nbsp;<i class="uk-icon-large uk-icon-upload" style="line-height:28px;cursor: pointer"
+                                         onclick="addFileToUtil(this)"></i>
+                    @endrole
+                </li>
             </ul>
             @if(session('callback'))
             <div class="uk-alert uk-alert-success" data-uk-alert>

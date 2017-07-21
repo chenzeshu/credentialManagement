@@ -3,4 +3,13 @@
 
 return [
     'human' => 'human',
+    'credentials_basic' => 'credentials_basic',
+    'credentials_1' => 'credentials_1',
+    'credentials_2' => 'credentials_2',
+    'credentials_3' => 'credentials_3',
+    'credentials_4' => 'credentials_4',
+    'credentials_5' => 'credentials_5',
+    'credentials_6' => 'credentials_6',
+    'soft'=>'soft',
+    'patent'=>'patent'
 ];

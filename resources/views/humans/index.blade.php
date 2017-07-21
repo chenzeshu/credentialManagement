@@ -20,13 +20,13 @@
         @endif
 
         @if($errors->any())
-                @foreach($errors->all() as $error)
-                    <div class="uk-alert" data-uk-alert>
-                        <a href="" class="uk-alert-close uk-close"></a>
-                        <p>{{$error}}</p>
-                    </div>
-                @endforeach
-            @endif
+            @foreach($errors->all() as $error)
+                <div class="uk-alert" data-uk-alert>
+                    <a href="" class="uk-alert-close uk-close"></a>
+                    <p>{{$error}}</p>
+                </div>
+            @endforeach
+        @endif
             <table class="uk-table uk-table-hover uk-table-striped uk-table-condensed">
                 <thead>
                 <tr>

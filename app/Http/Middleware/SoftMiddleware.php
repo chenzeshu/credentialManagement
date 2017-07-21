@@ -15,7 +15,10 @@ class SoftMiddleware
      */
     public function handle($request, Closure $next)
     {
-        session(['credential'=>'soft', 'name'=>'软件产品']);
+        session([
+            'credential'=>config('transforms.soft'),
+            'name'=>config('titles.soft')
+        ]);
         return $next($request);
     }
 }

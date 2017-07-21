@@ -86,7 +86,7 @@ class ManageUtilsRepository extends FileUtils
         DB::transaction(function () use ($humans){
             foreach ($humans as $human){
                 Manage_util::firstOrCreate([
-                    'history_id'=>session('histroy_id'),
+                    'histroy_id'=>session('histroy_id'),
                     'file_id'=>$human->id,
                     'file_name'=>$human->name,
                     'file_belongs' => 'humans',
@@ -116,7 +116,7 @@ class ManageUtilsRepository extends FileUtils
         DB::transaction(function () use ($credentials, $tableName){
             foreach ($credentials as $credential){
                 Manage_util::firstOrCreate([
-                    'history_id'=>session('histroy_id'),
+                    'histroy_id'=>session('histroy_id'),
                     'file_id'=> $credential->id,
                     'file_name'=> $credential->name,
                     'file_belongs' => $tableName,  //填表名而不是model名
@@ -138,7 +138,7 @@ class ManageUtilsRepository extends FileUtils
         DB::transaction(function () use ($patents){
             foreach ($patents as $patent){
                 Manage_util::firstOrCreate([
-                    'history_id'=>session('histroy_id'),
+                    'histroy_id'=>session('histroy_id'),
                     'file_id'=> $patent->id,
                     'file_name'=> $patent->name,
                     'file_belongs' => 'patents',  //填表名而不是model名
@@ -163,7 +163,7 @@ class ManageUtilsRepository extends FileUtils
         DB::transaction(function () use ($softs){
             foreach ($softs as $soft){
                 Manage_util::firstOrCreate([
-                    'history_id'=>session('histroy_id'),
+                    'histroy_id'=>session('histroy_id'),
                     'file_id'=> $soft->id,
                     'file_name'=> $soft->name,
                     'file_belongs' => 'soft_certificates',  //填表名而不是model名

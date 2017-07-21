@@ -15,7 +15,7 @@ class credentials_3
      */
     public function handle($request, Closure $next)
     {
-        session(['credential'=>'credentials_3',
+        session(['credential'=>config('transforms.credentials_3'),
             'name'=>config('titles.credential_3')]);
         return $next($request);
     }

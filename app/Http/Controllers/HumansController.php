@@ -38,7 +38,7 @@ class HumansController extends Controller
             $human->path_title  = unserialize($human->path_title);
             $human->path_skill  = unserialize($human->path_skill);
         }
-        session(['credential'=>'human']); //用于selectFile的type参数
+        session(['credential'=>config('transforms.human')]); //用于selectFile的type参数
         return view('humans.index',compact('humans'));
     }
 

@@ -15,7 +15,10 @@ class PatentMiddleware
      */
     public function handle($request, Closure $next)
     {
-        session(['credential'=>'patent', 'name'=>'专利']);
+        session([
+            'credential'=>config('transforms.patent'),
+            'name'=>config('titles.patent')
+        ]);
         return $next($request);
     }
 }
