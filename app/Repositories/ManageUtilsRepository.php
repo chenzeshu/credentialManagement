@@ -9,6 +9,7 @@
 namespace App\Repositories;
 
 
+use App\Histroy;
 use App\Manage_util;
 use App\Repositories\CommonUtils\FileUtils;
 use App\User;
@@ -175,5 +176,16 @@ class ManageUtilsRepository extends FileUtils
             }
         });
         return '插入softs成功';
+    }
+
+    public function dataTransaction($adds, $histroy_id)
+    {
+        DB::transaction(function () use ($adds, $histroy_id){
+            foreach ($adds as $add){
+                Histroy::findOrFail($histroy_id)->histroy_details()->firstOrCreate($add);
+            }
+            //todo 清空manage_util表
+            Manage_util::truncate();
+        });
     }
 }

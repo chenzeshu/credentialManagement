@@ -20,8 +20,15 @@ class ManageUtilController extends Controller
     public function index()
     {
         $details = Manage_util::paginate(15);
-        $histroy = Histroy::findOrFail(session('histroy_id'));
-        return view('manage_util.index', compact('details', 'histroy'));
+        $histroy_id = session('histroy_id');
+        if(!$histroy_id){
+            return view('manage_util.index', compact('details'));
+        }
+        else{
+            $histroy = Histroy::findOrFail($histroy_id);
+            return view('manage_util.index', compact('details', 'histroy'));
+        }
+
     }
 
     public function store(Request $request)
@@ -40,17 +47,16 @@ class ManageUtilController extends Controller
         }
     }
 
+    /**
+     * 审批员确认修改并与原表合并，同时清空痕迹
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function ensure()
     {
         $histroy_id = session('histroy_id');
         $adds = Manage_util::all()->toArray();
-        DB::transaction(function () use ($adds, $histroy_id){
-            foreach ($adds as $add){
-                Histroy::findOrFail($histroy_id)->histroy_details()->firstOrCreate($add);
-            }
-            //todo 清空manage_util表
-            Manage_util::truncate();
-        });
+        //todo 合并
+        $this->repo->dataTransaction($adds, $histroy_id);
 
         return redirect()->route('manage.show',$histroy_id)->with('callback', '审批员新增文件成功, 重复文件自动被剔除');
     }

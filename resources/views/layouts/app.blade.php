@@ -62,7 +62,7 @@
 
                 <li>
                     @role('checker')
-                    <a href="{{route('manage.index')}}">审批管理 <strong>
+                    <a href="{{route('manage.index')}}" id="navTop">审批管理 <strong>
                             <div class="uk-badge uk-badge-warning uk-badge-notification">{{session('count')}}</div>
                         </strong></a>
                     @endrole
@@ -309,7 +309,19 @@
         }
         
         function showTips() {
-            layer.tips('请选择栏目进行添加', '#nav0');
+            var exist = "{{session('histroy_id')}}"
+            if(exist !== ''){
+                layer.tips('请选择栏目进行添加', '#nav0',{
+                    tips: [2, '#3595CC'],
+                    time: 4000
+                });
+            }else{
+                layer.tips('未选择待审批表，请在列表中选择', '#navTop',{
+                    tips: [1, '#3595CC'],
+                    time: 4000
+                });
+            }
+
         }
     </script>
     @yield('customerJS')

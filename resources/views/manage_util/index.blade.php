@@ -4,7 +4,10 @@
     <div>
         <ul class="uk-breadcrumb">
             <li><span class="uk-text-large uk-text-bold">审批工具表</span></li>
-            <li>（目前修改表id：{{$histroy->id}}，投标项目:{{$histroy->reason_project !== null ? $histroy->reason_project : '未填写'}}）
+            <li>
+                @if(isset($histroy))
+                    （目前修改表id：{{$histroy->id}}，投标项目:{{$histroy->reason_project !== null ? $histroy->reason_project : '未填写'}}）
+                @endif
                 <button class="uk-button uk-button-primary" onclick="showTips()">新增</button>
                 <button class="uk-button" onclick="history.go(-1)">返回</button>
                 @include('manage_util._ensure')
