@@ -110,6 +110,9 @@ Route::group(['middleware'=>['auth','show_count']],function (){
     Route::resource('users','UserController');
     Route::resource('roles', 'RolesController');
     Route::resource('perms', 'PermissionsController');
+
+//      消息模块
+    Route::resource('msgs', 'MessagesController');
 });
 
 

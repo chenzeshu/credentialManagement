@@ -21,6 +21,12 @@ class EventServiceProvider extends ServiceProvider
         ],
         'App\Events\Submit' => [
             'App\Listeners\UpdateHistroyAndHistroyDetailsOnSubmit',
+        ],
+        'App\Events\CheckerChangement' => [
+            'App\Listeners\ChangeMessage'
+        ],
+        'App\Events\CheckerDelment' => [
+            'App\Listeners\DelMessage'
         ]
     ];
 

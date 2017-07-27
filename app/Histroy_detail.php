@@ -17,8 +17,8 @@ class Histroy_detail extends Model
         return $this->belongsTo('App\Histroy');
     }
 
-    public function user()
-    {
-        return $this->belongsTo('App\User');
-    }
+//    public function user()
+//    {
+//        return $this->belongsTo('App\User');
+//    }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Histroy;
 use App\Jobs\UpdateHistroyJob;
+use App\Message;
 use App\Repositories\HistroyRepository;
 use App\User;
 use Illuminate\Http\Request;
@@ -27,7 +28,12 @@ class HistroyController extends Controller
      */
     public function index()
     {
+        //todo 拿到消息
+        $counts = Message::where('user_id', Auth::id())->count();
         $histroies = User::findOrFail(Auth::id())->histroies()->with('checker')->orderBy('updated_at', 'desc')->paginate(15);
+
+        session(['msg_count' => $counts]);
+
         return view('histroies.index', compact('histroies'));
     }
 

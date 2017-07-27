@@ -27,4 +27,9 @@ class Histroy extends Model
         return $this->hasMany('App\Histroy_detail');
     }
 
+    public function messages()
+    {
+        return $this->hasMany('App\Message');
+    }
+
 }

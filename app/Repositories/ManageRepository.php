@@ -9,6 +9,12 @@
 namespace App\Repositories;
 
 
+use App\Events\CheckerChangement;
+use App\Events\CheckerDelment;
+use App\Histroy;
+use App\User;
+use Illuminate\Support\Facades\Auth;
+
 class ManageRepository
 {
     /**
@@ -37,5 +43,38 @@ class ManageRepository
             $detail->file_path = unserialize($detail->file_path);
         }
         return $details;
+    }
+
+    /**
+     * 审批员修改审批表时的消息机制
+     * @param $adds
+     * @param $histroy_id
+     */
+    public function insertChangeMsg($adds)
+    {
+        $msg = $this->getMsgInfo();
+        event(new CheckerChangement($adds,$msg['checker_name'], $msg['user_id'], $msg['histroy_id']));
+    }
+
+    /**
+     * 审批员删除审批表的细节时的消息机制
+     * @param $detail
+     */
+    public function insertDelMsg($detail)
+    {
+        $delName = $detail->file_name;
+        $msg = $this->getMsgInfo();
+        event(new CheckerDelment($delName, $msg['checker_name'], $msg['user_id'], $msg['histroy_id']));
+    }
+
+    private function getMsgInfo(){
+        $histroy = Histroy::findOrFail(session('histroy_id'));
+        $name = $histroy->checker()->first()->name;
+        $msg = [
+            'user_id' => $histroy->user_id,
+            'checker_name'=> $name,
+            'histroy_id' => $histroy->id
+        ];
+        return $msg;
     }
 }

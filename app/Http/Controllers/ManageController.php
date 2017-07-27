@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\CheckerDelment;
 use App\Histroy;
 use App\Histroy_detail;
 use App\Manage_util;
@@ -122,8 +123,11 @@ class ManageController extends Controller
      */
     public function destroy_detail($id)
     {
-        $re = Histroy_detail::findOrFail($id)->delete();
+        $detail = Histroy_detail::findOrFail($id);
+        $re = $detail->delete();
         if($re){
+            //触发App/Events/CheckerDelment事件
+            $this->repo->insertDelMsg($detail);
             return redirect()->back()->with('callback', '删除成功');
         }else{
             return redirect()->back()->withErrors('删除失败');

@@ -37,6 +37,7 @@
     </script>
 </head>
 <body>
+<div id="alert"></div>
 <div id="app">
     <nav class="uk-navbar">
         <!-- Branding Image -->
@@ -62,9 +63,11 @@
 
                 <li>
                     @role('checker')
-                    <a href="{{route('manage.index')}}" id="navTop">审批管理 <strong>
+                    <a href="{{route('manage.index')}}" id="navTop">审批管理
+                        <strong>
                             <div class="uk-badge uk-badge-warning uk-badge-notification">{{session('count')}}</div>
-                        </strong></a>
+                        </strong>
+                    </a>
                     @endrole
                 </li>
 
@@ -104,11 +107,27 @@
                     {{--<li><a href="{{ route('register') }}">Register</a></li>--}}
                 @else
                     <li class="uk-parent" data-uk-dropdown>
-                        <a href="#" style="cursor: pointer">{{ Auth::user()->name }}</a>
+                        <a href="#" style="cursor: pointer">{{ Auth::user()->name }}
+                            @if(session('msg_count') > 0)
+                            <strong>
+                                <div class="uk-badge uk-badge-warning uk-badge-notification">{{session('msg_count')}}</div>
+                            </strong>
+                            @endif
+                        </a>
 
                         <div class="uk-dropdown uk-dropdown-navbar">
                             <ul class="uk-nav uk-nav-navbar">
+                                <li class="uk-nav-header">
+                                    <a href="{{ route('msgs.index') }}">
+                                        我的消息
+                                        @if(session('msg_count') > 0)
+                                            <strong>
+                                                <div class="uk-badge uk-badge-warning uk-badge-notification">{{session('msg_count')}}</div>
+                                            </strong>
+                                        @endif
+                                    </a>
 
+                                </li>
                                 <li class="uk-nav-header">
                                     @include('users._editpassword')
                                 </li>
@@ -175,6 +194,7 @@
                             <ul class="uk-nav-sub">
                                 <li><a href="{{route('selfs.index')}}">未审批表</a></li>
                                 <li><a href="{{route('histroy.index')}}">我的提交历史</a></li>
+                                <li><a href="{{route('msgs.index')}}">我的消息</a></li>
                                 @role('checker')
                                 <li><a href="{{route('manage_util.index')}}">我的审批工具表</a></li>
                                 @endrole
@@ -232,10 +252,8 @@
             setTimeout(function () {
                 document.getElementById('test').click()
             },200)
-
             leftBindHighlight()
         }
-
         /**
          * -------------------初始化和刷新展示nav---------------------------
          *
@@ -321,7 +339,6 @@
                     time: 4000
                 });
             }
-
         }
     </script>
     @yield('customerJS')
