@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Credentials\IpParent;
 use App\Patent;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
 
-class PatentsController extends Controller
+class PatentsController extends IpParent
 {
     function __construct()
     {
-        $this->middleware('permission:maintaince')->only(['store', 'update', 'destroy', 'download', 'deleteFile']);
+        parent::__construct();
     }
 
     /**

@@ -4,7 +4,7 @@
         <div>
             <ul class="uk-breadcrumb">
                 <li><a href="#"><span class="uk-text-large uk-text-bold">{{session('name')}}总览</span></a>
-                    @permission('maintaince')@include('softs._create')@endpermission&nbsp; <i class="uk-icon-large uk-icon-plus-square" style="line-height:28px"
+                    @permission(config('perms.ip.insert'))@include('softs._create')@endpermission&nbsp; <i class="uk-icon-large uk-icon-plus-square" style="line-height:28px"
                                                        onclick="inputFile(this)"></i>
                     @role('checker')
                     &nbsp;&nbsp;&nbsp;<i class="uk-icon-large uk-icon-upload" style="line-height:28px;cursor: pointer"
@@ -39,7 +39,7 @@
                     <th>颁发日期</th>
                     <th>有效日期</th>
                     <th>备注</th>
-                    @permission('maintaince')
+                    @permission(config('perms.ip.download'))
                     <th>扫描件</th>
                     <th colspan="2">操作</th>
                     @endpermission

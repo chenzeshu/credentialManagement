@@ -2,14 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Credentials\AdminParent;
 use App\Permission;
 use App\Role;
-use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class RolesController extends Controller
+class RolesController extends AdminParent
 {
+    function __construct()
+    {
+        parent::__construct();
+    }
     /**
      * Display a listing of the resource.
      *

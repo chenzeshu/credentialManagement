@@ -2,11 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Credentials\AdminParent;
 use App\Permission;
 use Illuminate\Http\Request;
 
-class PermissionsController extends Controller
+class PermissionsController extends AdminParent
 {
+    function __construct()
+    {
+        parent::__construct();
+    }
+
     /**
      * Display a listing of the resource.
      *

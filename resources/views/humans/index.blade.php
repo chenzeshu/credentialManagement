@@ -4,7 +4,7 @@
         <div>
             <ul class="uk-breadcrumb">
                 <li><a href="#"><span class="uk-text-large uk-text-bold">人员信息总览</span></a>
-                    @permission('maintaince') @include('humans._create')@endpermission&nbsp; <i class="uk-icon-large uk-icon-plus-square" style="line-height:28px"
+                @permission(config('perms.human.insert'))@include('humans._create')@endpermission&nbsp; <i class="uk-icon-large uk-icon-plus-square" style="line-height:28px"
                                                         onclick="inputFile(this)"></i>
                 @role('checker')
                     &nbsp;&nbsp;&nbsp;<i class="uk-icon-large uk-icon-upload" style="line-height:28px;cursor: pointer"
@@ -33,7 +33,7 @@
                     <th><button onclick='cancelAllFiles()' class="uk-button uk-button-small">全选/取消</button></th>
                     <th>人员姓名</th>
                     <th>部门</th>
-                    @permission('maintaince')
+                    @permission(config('perms.human.scan'))
                     <th>身份证号</th>
                     <th>性别</th>
                     <th>专业</th>
@@ -46,7 +46,7 @@
                     <th>邮箱</th>
                     <th>手机</th>
                     <th>备注</th>
-                    @permission('maintaince')
+                    @permission(config('perms.human.download'))
                     <th>扫描件</th>
                     <th colspan="2">操作</th>
                     @endpermission
@@ -61,7 +61,7 @@
                         </td>
                         <td>{{$human->name}}</td>
                         <td>{{$human->department}}</td>
-                        @permission('maintaince')
+                        @permission(config('perms.human.scan'))
                         <td>{{$human->credit}}</td>
                         <td>{{$human->sex}}</td>
                         <td>{{$human->profession}}</td>
@@ -75,10 +75,9 @@
                         <td>{{$human->phone}}</td>
                         <td>@include('humans._remark')</td>
 
-                        @permission('maintaince')
+                        @permission(config('perms.human.download'))
                         <td>@include('humans._download')</td>
                         <td>
-                            {{--<a class="uk-button uk-button-primary" href="">修改</a>--}}
                             @include('humans._edit')
                             @include('humans._delete')
                         </td>

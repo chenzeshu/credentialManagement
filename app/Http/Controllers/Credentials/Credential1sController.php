@@ -9,14 +9,14 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
 
-class Credential1sController extends Controller
+class Credential1sController extends CredentialParent
 {
     protected $repo;
 
     function __construct(CredentialRepository $repo)
     {
+        parent::__construct();
         $this->repo = $repo;
-        $this->middleware('permission:maintaince')->only(['store', 'update', 'destroy', 'download', 'deleteFile']);
     }
 
     /**

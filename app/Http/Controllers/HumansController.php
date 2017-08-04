@@ -19,12 +19,14 @@ class HumansController extends Controller
     function __construct(HumanRepository $repo)
     {
         $this->repo = $repo;
-        $this->middleware('permission:maintaince')->only(['store', 'update', 'destroy', 'download', 'deleteFile']);
+        $this->setPerms(config('perms.human.insert'), ['store']);
+        $this->setPerms(config('perms.human.edit'), ['update']);
+        $this->setPerms(config('perms.human.del'), ['destroy','deleteFile']);
+        $this->setPerms(config('perms.human.download'), ['download']);
     }
 
     /**
      * Display a listing of the resource.
-     *
      * @return \Illuminate\Http\Response
      */
     public function index()

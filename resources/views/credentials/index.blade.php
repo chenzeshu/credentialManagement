@@ -5,7 +5,7 @@
         <div class="">
             <ul class="uk-breadcrumb">
                 <li><a href="#"><span class="uk-text-large uk-text-bold">{{session('name')}}总览</span></a>
-                    @permission('maintaince')
+                    @permission(config('perms.credential.insert'))
                         @include('credentials._create')
                     @endpermission
                     &nbsp; <i class="uk-icon-large uk-icon-plus-square" style="line-height:28px"
@@ -39,7 +39,7 @@
                     <th>颁发日期</th>
                     <th>有效日期</th>
                     <th>备注</th>
-                    @permission('maintaince')
+                    @permission(config('perms.credential.download'))
                     <th>下载文件</th>
                     <th colspan="2">操作</th>
                     @endpermission
@@ -77,7 +77,7 @@
                                     {{$credential->time_end}}</button>
                         </td>
                         <td>@include('credentials._remark')</td>
-                        @permission('maintaince')
+                        @permission(config('perms.credential.download'))
                         <td>@include('credentials._download')</td>
                         <td>
                             {{--<a class="uk-button uk-button-primary" href="">修改</a>--}}

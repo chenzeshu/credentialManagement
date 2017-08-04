@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserRegisterRequest;
 use App\Http\Requests\UserRequest;
 use App\Role;
 use App\User;
@@ -41,9 +42,21 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(UserRegisterRequest $request)
     {
-        //
+        $instance = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'password' => $request->password
+        ]);
+
+        if($instance){
+            return redirect()->back()->with('callback', '新增成功');
+        }else{
+            //还是 throw new E?
+            return redirect()->back()->withErrors('新增失败，请重试');
+        }
     }
 
     /**

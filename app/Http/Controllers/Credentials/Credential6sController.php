@@ -9,14 +9,14 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
 
-class Credential6sController extends Controller
+class Credential6sController extends QParent
 {
     protected $repo;
 
     function __construct(CredentialRepository $repo)
     {
+        parent::__construct();
         $this->repo = $repo;
-        $this->middleware('permission:maintaince')->only(['store', 'update', 'destroy', 'download', 'deleteFile']);
     }
     /**
      * Display a listing of the resource.
@@ -29,7 +29,7 @@ class Credential6sController extends Controller
         foreach ($credentials as $credential){
             $credential->path = unserialize($credential->path);
         }
-        return view('credentials.index',compact('credentials'));
+        return view('quality.index',compact('credentials'));
     }
 
     /**
