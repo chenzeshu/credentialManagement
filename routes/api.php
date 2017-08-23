@@ -13,6 +13,11 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::middleware('auth:api')->get('/v1/user', function (Request $request) {
+//    return $request->user();
+    return 123;
 });
+
+
+//Cache测试
+Route::match(['get','post'], 'memcached/{key}','TestController@memcached');

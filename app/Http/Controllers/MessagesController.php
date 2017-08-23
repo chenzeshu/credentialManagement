@@ -8,6 +8,10 @@ use Illuminate\Support\Facades\Auth;
 
 class MessagesController extends Controller
 {
+    /**
+     * 展示消息列表
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index()
     {
         $ids = [];
@@ -28,9 +32,18 @@ class MessagesController extends Controller
         return view('msgs.index', compact('cols'));
     }
 
+    /**
+     * 展示更改详情
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function show($id)
     {
-        $details = Histroy::findOrFail($id)->messages()->get();
+        $msg = Histroy::findOrFail($id)->messages();
+        //todo 更改该信息状态为已读
+        $msg->update(['status'=>1]);
+        //todo 拿到信息详情
+        $details = $msg->get();
         foreach ($details as $detail){
             if($detail->type == 0){
                 $detail->names = unserialize($detail->names);
@@ -38,4 +51,5 @@ class MessagesController extends Controller
         }
         return view('msgs._show', compact('details'));
     }
+
 }

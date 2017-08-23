@@ -9,6 +9,7 @@ use App\Repositories\HistroyRepository;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 
 class HistroyController extends Controller
@@ -19,17 +20,21 @@ class HistroyController extends Controller
 
     public function __construct(HistroyRepository $repo)
     {
+        parent::__construct();
         $this->repo = $repo;
     }
 
     /**
-     * 作用:用户查看跟自己有关的审批表单
+     * 作用1:用户查看跟自己有关的审批表单
+     * 作用2：作为默认主页，将登陆者信息保存到缓存中(有效期一天)
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index()
     {
-        //todo 拿到消息
-        $counts = Message::where('user_id', Auth::id())->count();
+        //todo 将使用者信息存入缓存方便调用
+        Cache::put('user'.Auth::id(), Auth::user(),86400);
+        //todo 拿到未读的消息数目
+        $counts = Message::where('user_id', Auth::id())->where('status', 0)->count();
         $histroies = User::findOrFail(Auth::id())->histroies()->with('checker')->orderBy('updated_at', 'desc')->paginate(15);
 
         session(['msg_count' => $counts]);

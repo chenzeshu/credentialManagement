@@ -8,6 +8,7 @@ use App\Role;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
@@ -79,6 +80,31 @@ class UserController extends Controller
     public function edit($id)
     {
         //
+    }
+
+    /**
+     * 修改邮箱及手机
+     * method: post
+     * @param Request $request
+     * @return $this|\Illuminate\Http\RedirectResponse
+     */
+    public function editInfo(Request $request)
+    {
+        $user = User::findOrFail(Auth::id());
+
+        $re = $user->update([
+            'name'=> $request->name,
+           'email'=> $request->email,
+           'phone'=>$request->phone,
+        ]);
+
+        if($re){
+            return redirect()->back()->with('callback', "修改成功， 目前姓名为{$request->name}，邮箱为{$request->email}，手机为{$request->phone}");
+        }
+        else{
+            return redirect()->back()->withErrors( '修改失败');
+        }
+
     }
 
     /**

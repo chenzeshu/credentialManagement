@@ -16,6 +16,7 @@
 //mysql事务测试
 Route::get('test', 'TestController@test');
 
+
 Auth::routes();
 
 Route::group(['middleware'=>['auth','show_count']],function (){
@@ -104,7 +105,8 @@ Route::group(['middleware'=>['auth','show_count']],function (){
 
 //      系统/用户/权限
     Route::get('users/reset/{id}', 'UserController@reset')->name('users.reset');  //重置密码
-    Route::post('users/editpassword', 'UserController@editPassword')->name('users.editpassword'); //修改面膜
+    Route::post('users/editpassword', 'UserController@editPassword')->name('users.editpassword'); //修改密码
+    Route::post('users/editinfo', 'UserController@editInfo')->name('users.editinfo'); //修改个人信息
     Route::post('users/selectusers', 'UserController@selectUsers')->name('users.selectusers');  //搜索/筛选用户
 
     Route::resource('users','UserController');

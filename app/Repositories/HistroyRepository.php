@@ -76,7 +76,6 @@ class HistroyRepository
         $checker = $this->getChecker($request->reason_type); //拿到审批人
         //todo 触发事件进入队列
         $job = (new UpdateHistroyJob($checker, Auth::id(), $request->reason_type, $request->reason_project, $request->reason_words))->onQueue('foo');
-        $this->dispatch($job);
+        dispatch($job);
     }
-
 }

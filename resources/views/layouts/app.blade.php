@@ -129,6 +129,9 @@
 
                                 </li>
                                 <li class="uk-nav-header">
+                                    @include('users._editinfo')
+                                </li>
+                                <li class="uk-nav-header">
                                     @include('users._editpassword')
                                 </li>
                                 <li class="uk-nav-header">
