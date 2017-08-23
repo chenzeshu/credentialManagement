@@ -8,7 +8,7 @@
         <a class="uk-modal-close uk-close"></a>
         {!! Form::open(['route'=>session('credential').'.store','method'=>'post','class'=>'uk-form', 'files'=>true]) !!}
         <fieldset>
-            <legend>修改{{session('name')}}</legend>
+            <legend>新增{{session('name')}}</legend>
             <div class="uk-form-row">
                 <div class="uk-grid">
                     <div class="uk-width-1-4">

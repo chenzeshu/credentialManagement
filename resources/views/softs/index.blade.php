@@ -78,7 +78,7 @@
                             {{$soft->time_end}}</button>
                         </td>
                         <td>@include('softs._remark')</td>
-                        @permission('maintaince')
+                        @permission(config('perms.ip.download'))
                         <td>@include('softs._download')</td>
                         <td>
                             {{--<a class="uk-button uk-button-primary" href="">修改</a>--}}

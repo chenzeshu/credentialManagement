@@ -20,7 +20,6 @@ class HistroyController extends Controller
 
     public function __construct(HistroyRepository $repo)
     {
-        parent::__construct();
         $this->repo = $repo;
     }
 
