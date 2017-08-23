@@ -21,7 +21,7 @@
                 <tr>
                     <th>角色名</th>
                     <th>角色描述</th>
-                    <th>角色权限</th>
+                    <th width="600">角色权限</th>
                     <th>目前拥有此角色者</th>
                     <th colspan="2">操作</th>
                 </tr>

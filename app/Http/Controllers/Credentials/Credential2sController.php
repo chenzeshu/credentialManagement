@@ -9,7 +9,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
 
-class Credential2sController extends CredentialParent
+class Credential2sController extends IpParent
 {
     protected $repo;
 
@@ -29,7 +29,7 @@ class Credential2sController extends CredentialParent
         foreach ($credentials as $credential){
             $credential->path = unserialize($credential->path);
         }
-        return view('credentials.index',compact('credentials'));
+        return view('IP.index',compact('credentials'));
     }
 
     /**
