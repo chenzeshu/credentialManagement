@@ -40,6 +40,7 @@
                 <thead>
                 <tr>
                     <th>用户姓名</th>
+                    <th>邮箱</th>
                     <th>角色</th>
                     <th>最后登陆时间</th>
                     <th colspan="2">操作</th>
@@ -49,6 +50,7 @@
                 @foreach($users as $user)
                     <tr>
                         <td>{{$user->name}}</td>
+                        <td>{{$user->email}}</td>
                         <td>
                             @if(!empty($user->roles))
                                 @foreach($user->roles as $role)

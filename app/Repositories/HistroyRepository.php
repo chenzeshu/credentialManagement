@@ -46,7 +46,7 @@ class HistroyRepository
     public function getChecker($reason_type)
     {
         if($reason_type==0){
-            $checker= User::where('name','钱正宇')->first();
+            $checker= User::where('name','钱正宇')->where('email', '!=', 'test2@qq.com')->first();
         }else{
             $checker= User::where('name','高晓峰')->first();
         }

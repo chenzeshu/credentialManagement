@@ -116,7 +116,7 @@ class UserController extends Controller
     {
         $user = User::findOrFail(Auth::id());
         //验证旧密码
-        if(Hash::check($user->password, $request->password_o)){
+        if(Hash::check($request->password_o,$user->password)){
             //更新密码
             $user->update([
                 'password' => bcrypt($request->password)
