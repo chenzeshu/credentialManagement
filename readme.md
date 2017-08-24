@@ -1,10 +1,4 @@
-<p align="center"><h2><b>电子化办公文件管理审批平台</b></h2>
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
+<p align="center" style="text-align:center"><h2><b>电子化办公文件管理审批平台</b></h2>
 
 ## About This Program
 主要用于公司内部各类文件及审批的去纸质化
