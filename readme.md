@@ -1,5 +1,4 @@
-<p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
-
+<p align="center"><h2><b>电子化办公文件管理审批平台</b></h2>
 <p align="center">
 <a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
@@ -13,6 +12,7 @@
  - 使用了uikit的非扁平风格
  - 使用了entrust来RBAC
  - 使用了beanstalkd来适应并发
+ - 使用了memcached缓存
  
 ## v0.90 / 2017.6.20
  - 为审批员增加了删除申请表单内文件的能力
@@ -40,6 +40,7 @@
   - 统计模块
   - 更为详细的Exception
   - 适当的代码重构
+  - 文件下载自定义水印功能
   
 ## evenMore
   - 使用vue实现前后端分离，因为发现后端渲染和blade模版在后续开发中有掣肘。
