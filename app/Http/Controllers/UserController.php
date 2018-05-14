@@ -45,11 +45,13 @@ class UserController extends Controller
      */
     public function store(UserRegisterRequest $request)
     {
+        $pwd = bcrypt($request->password);
+        dd($pwd);
         $instance = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'phone' => $request->phone,
-            'password' => bcrypt($request->password)
+            'password' => $pwd
         ]);
 
         if($instance){

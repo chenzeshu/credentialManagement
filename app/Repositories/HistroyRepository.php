@@ -9,9 +9,13 @@
 namespace App\Repositories;
 
 
+use App\Histroy;
 use App\Jobs\UpdateHistroyJob;
+use App\SelfTable;
 use App\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Mockery\Exception;
 
 class HistroyRepository
 {
@@ -75,7 +79,42 @@ class HistroyRepository
         //todo 逻辑开始
         $checker = $this->getChecker($request->reason_type); //拿到审批人
         //todo 触发事件进入队列
-        $job = (new UpdateHistroyJob($checker, Auth::id(), $request->reason_type, $request->reason_project, $request->reason_words))->onQueue('foo');
-        dispatch($job);
+//        $job = (new UpdateHistroyJob($checker, Auth::id(), $request->reason_type, $request->reason_project, $request->reason_words))->onQueue('foo');
+//        dispatch($job);
+        //todo 20180514放弃队列
+        $this->updateHandle($checker, Auth::id(), $request->reason_type, $request->reason_project, $request->reason_words);
+    }
+
+    private function updateHandle(User $checker, $id, $reason_type, $reason_project, $reason_words)
+    {
+        $details = User::findOrFail($id)->selfTables()->get();
+
+        DB::beginTransaction();
+        try{
+            //todo 在histroy表中生成记录
+            $histroy = User::findOrFail($id)->histroies()->create([
+                'checker_id'=> $checker->id,
+                'reason_type'=> $reason_type,
+                'reason_project'=> $reason_project,
+                'reason_words'=> $reason_words,
+                'examine_type'=> 0 //审批中
+            ]);
+            //todo 将临时表数据迁移到Histroy_details表中
+            foreach ($details as $detail){
+                Histroy::findOrFail($histroy->id)->histroy_details()->create([
+                    'file_id'=>$detail->file_id,
+                    'file_name'=>$detail->file_name,
+                    'file_belongs' => $detail->file_belongs,
+                    'file_path' => $detail->file_path
+                ]);  //不能直接放二维数组
+            }
+            //todo 清空临时表
+            SelfTable::where('user_id',$id)->delete();
+        }catch (Exception $e){
+            DB::rollback();
+            throw $e;
+        }finally{
+            DB::commit();
+        }
     }
 }
