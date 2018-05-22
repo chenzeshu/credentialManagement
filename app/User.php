@@ -61,5 +61,12 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Histroy');
     }
+    /**
+     * 登陆日志表
+     */
+    public function record()
+    {
+        return $this->hasMany(Record::class);
+    }
 
 }
